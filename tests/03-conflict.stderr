@@ -5,3 +5,5 @@ error[E0119]: conflicting implementations of trait `std::default::Default` for t
   |          ^^^^^^^^  ------- first implementation here
   |          |
   |          conflicting implementation for `Foo`
+  |
+  = note: this error originates in a derive macro (in Nightly builds, run with -Z macro-backtrace for more info)

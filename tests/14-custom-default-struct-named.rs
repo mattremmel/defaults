@@ -7,7 +7,7 @@ struct NonDefault {
 #[derive(Defaults)]
 struct Foo {
     x: usize,
-    #[def = "NonDefault { a: 10 }"]
+    #[default(value = "NonDefault { a: 10 }")]
     non_default: NonDefault,
 }
 

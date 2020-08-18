@@ -1,5 +1,5 @@
-error: expected `def = "..."`
- --> $DIR/08-attr-empty.rs:5:7
+error: expected attribute arguments in parentheses: #[default(...)]
+ --> $DIR/08-attr-empty.rs:5:5
   |
-5 |     #[def]
-  |       ^^^
+5 |     #[default]
+  |     ^^^^^^^^^^

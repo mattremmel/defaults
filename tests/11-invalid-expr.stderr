@@ -1,5 +1,5 @@
 error: Not a valid expression
- --> $DIR/11-invalid-expr.rs:5:13
+ --> $DIR/11-invalid-expr.rs:5:23
   |
-5 |     #[def = "1/"]
-  |             ^^^^
+5 |     #[default(value = "1/")]
+  |                       ^^^^

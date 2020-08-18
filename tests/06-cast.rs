@@ -6,7 +6,7 @@ fn calc_x() -> u8 {
 
 #[derive(Defaults)]
 struct Foo {
-    #[def = "calc_x() as usize"]
+    #[default(value = "calc_x() as usize")]
     x: usize,
     y: usize,
 }

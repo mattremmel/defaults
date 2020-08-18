@@ -2,7 +2,7 @@ use defaults::Defaults;
 
 #[derive(Defaults)]
 struct Foo {
-    #[default(value = "100")]
+    #[default(foo = "100")]
     x: usize,
     y: usize,
 }

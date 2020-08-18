@@ -1,0 +1,18 @@
+error: expected `default(value = "...")`
+ --> $DIR/20-custom-default-invalid-ident.rs:5:15
+  |
+5 |     #[default(foo = "100")]
+  |               ^^^^^^^^^^^
+
+error[E0599]: no function or associated item named `default` found for struct `Foo` in the current scope
+  --> $DIR/20-custom-default-invalid-ident.rs:11:20
+   |
+4  | struct Foo {
+   | ---------- function or associated item `default` not found for this
+...
+11 |     let foo = Foo::default();
+   |                    ^^^^^^^ function or associated item not found in `Foo`
+   |
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following trait defines an item `default`, perhaps you need to implement it:
+           candidate #1: `std::default::Default`

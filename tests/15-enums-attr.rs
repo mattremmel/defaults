@@ -1,7 +1,7 @@
 use defaults::Defaults;
 
 #[derive(Defaults)]
-#[def = "A"]
+#[default(value = "A")]
 enum Foo {
     A,
     B,

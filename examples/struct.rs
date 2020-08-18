@@ -5,7 +5,7 @@ use std::time::Instant;
 pub struct Event {
     id: usize,
     name: String,
-    #[def = "Instant::now()"]
+    #[default(value = "Instant::now()")]
     time: Instant,
 }
 

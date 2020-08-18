@@ -1,5 +1,5 @@
-error: expected `def = "..."`
- --> $DIR/07-invalid-attr-value-type.rs:5:7
+error: expected `default(value = "...")`
+ --> $DIR/07-invalid-attr-value-type.rs:5:15
   |
-5 |     #[def = 10]
-  |       ^^^^^^^^
+5 |     #[default(value = 10)]
+  |               ^^^^^^^^^^

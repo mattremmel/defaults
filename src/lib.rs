@@ -7,14 +7,14 @@ use syn::spanned::Spanned;
 
 macro_rules! err {
     ($meta: expr) => {
-        err!($meta, r#"expected `def = "..."`"#)
+        err!($meta, r#"expected `default(value = "...")`"#)
     };
     ($meta: expr, $err: expr) => {
         Err(syn::Error::new_spanned($meta, $err))
     };
 }
 
-#[proc_macro_derive(Defaults, attributes(def))]
+#[proc_macro_derive(Defaults, attributes(default))]
 pub fn derive(input: TokenStream) -> TokenStream {
     let ast = parse_macro_input!(input as syn::DeriveInput);
     let name = &ast.ident;
@@ -64,7 +64,7 @@ fn derive_enum(
         }
         None => err!(
             name,
-            "Explicit default is required for enums.\nhelp: Add `#[def = \"...\"]` to the enum definition"
+            "Explicit default is required for enums.\nhelp: Add `#[default(value = \"...\")]` to the enum definition"
         ),
     }
 }
@@ -72,11 +72,11 @@ fn derive_enum(
 fn def_attr(attrs: &[syn::Attribute]) -> syn::Result<Option<&syn::Attribute>> {
     let mut out = None;
     for attr in attrs {
-        if attr.path.segments.len() == 1 && attr.path.segments[0].ident == "def" {
+        if attr.path.segments.len() == 1 && attr.path.segments[0].ident == "default" {
             if out.is_none() {
                 out = Some(attr);
             } else {
-                return err!(attr, r#"multiple definitions of `def` found"#);
+                return err!(attr, r#"multiple definitions of `default` found"#);
             }
         }
     }
@@ -84,10 +84,15 @@ fn def_attr(attrs: &[syn::Attribute]) -> syn::Result<Option<&syn::Attribute>> {
 }
 
 fn def_val_of(attr: &syn::Attribute) -> syn::Result<syn::Expr> {
-    let nv = match attr.parse_meta()? {
+
+    let nv = match attr.parse_args()? {
         syn::Meta::NameValue(nv) => nv,
         meta => return err!(meta),
     };
+
+    if nv.path.segments.len() != 1 || (nv.path.segments.len() == 1 && nv.path.segments[0].ident != "value" ) {
+        return err!(nv)
+    }
 
     match &nv.lit {
         syn::Lit::Str(s) => match s.parse::<syn::Expr>() {
